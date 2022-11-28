@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 
 from django.db import models
 
@@ -53,17 +53,17 @@ class QuestionItem(models.Model):
         return self.isShortAnswer
 
 
-class Answer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    question_item = models.ForeignKey(QuestionItem, on_delete=models.CASCADE)
-    # orm create new row created gets set automatically = when question gets
-    # opened
-    created = models.DateTimeField(auto_now_add=True)
-    # orm upon update (answering question), set content AND answered datetime
-    content = models.TextField()
-    answered = models.DateTimeField(null=True, blank=True)
+# class Answer(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     question_item = models.ForeignKey(QuestionItem, on_delete=models.CASCADE)
+#     # orm create new row created gets set automatically = when question gets
+#     # opened
+#     created = models.DateTimeField(auto_now_add=True)
+#     # orm upon update (answering question), set content AND answered datetime
+#     content = models.TextField()
+#     answered = models.DateTimeField(null=True, blank=True)
 
-    # TODO: Implement logic jump
+#     # TODO: Implement logic jump
 
-    # TODO: You can assign any JSON-encodable object to this field. It will be JSON-encoded before being stored in the database as a text value and it will be turned back into a python list/dict/string upon retrieval from the database.
-    # There is also a TypedJSONField, that allows you to define data types that must be included within each object in the array. More documentation to follow
+#     # TODO: You can assign any JSON-encodable object to this field. It will be JSON-encoded before being stored in the database as a text value and it will be turned back into a python list/dict/string upon retrieval from the database.
+#     # There is also a TypedJSONField, that allows you to define data types that must be included within each object in the array. More documentation to follow
