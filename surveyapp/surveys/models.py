@@ -1,4 +1,4 @@
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 
 from django.db import models
 
@@ -30,40 +30,29 @@ class Question(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    short_answer_content = models.CharField(max_length=400)
+    paragraph_content = models.CharField(max_length=3000)
+    radio_content = models.JSONField("RadioData", default=dict)
+    checkbox_content = models.JSONField("CheckboxData", default=dict)
+    dropdown_content = models.JSONField("DropdownData", default=dict)
 
     def __str__(self):
         return self.title
 
 
-class QuestionItem(models.Model):
-    isShortAnswer = models.BooleanField(default=False)
-    short_answer_content = models.CharField(max_length=400)
-    isParagraph = models.BooleanField(default=False)
-    paragraph_content = models.CharField(max_length=3000)
-    isRadio = models.BooleanField(default=False)
-    radio_content = models.JSONField("RadioData", default=dict)
-    isCheckbox = models.BooleanField(default=False)
-    checkbox_content = models.JSONField("CheckboxData", default=dict)
-    isDropdown = models.BooleanField(default=False)
-    # TODO: Field to store list?
-    dropdown_content = models.CharField(max_length=1200)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+class Answer(models.Model):
+     user = models.ForeignKey(User, on_delete=models.CASCADE)
+     question = models.ForeignKey(Question, on_delete=models.CASCADE)
+     # orm create new row created gets set automatically = when question gets
+     # opened
+     created = models.DateTimeField(auto_now_add=True)
+     # orm upon update (answering question), set content AND answered datetime
+     content = models.TextField()
+     answered = models.DateTimeField(null=True, blank=True)
 
-    def __str__(self):
-        return self.isShortAnswer
+     def __str__(self):
+         return f"{self.user} {self.question_item}"
 
-
-# class Answer(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     question_item = models.ForeignKey(QuestionItem, on_delete=models.CASCADE)
-#     # orm create new row created gets set automatically = when question gets
-#     # opened
-#     created = models.DateTimeField(auto_now_add=True)
-#     # orm upon update (answering question), set content AND answered datetime
-#     content = models.TextField()
-#     answered = models.DateTimeField(null=True, blank=True)
-
-#     # TODO: Implement logic jump
-
-#     # TODO: You can assign any JSON-encodable object to this field. It will be JSON-encoded before being stored in the database as a text value and it will be turned back into a python list/dict/string upon retrieval from the database.
-#     # There is also a TypedJSONField, that allows you to define data types that must be included within each object in the array. More documentation to follow
+     # TODO: Implement logic jump
+     # TODO: You can assign any JSON-encodable object to this field. It will be JSON-encoded before being stored in the database as a text value and it will be turned back into a python list/dict/string upon retrieval from the database.
+     # There is also a TypedJSONField, that allows you to define data types that must be included within each object in the array. More documentation to follow
