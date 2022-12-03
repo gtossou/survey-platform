@@ -11,7 +11,6 @@ class Survey(models.Model):
 
 
 class Question(models.Model):
-    title = models.TextField(null=True)
     # TODO: make choicelist to have a fixed set of types
     QUESTION_TYPES = [
         ('SHORT_ANSWER', 'Short answer'),
@@ -26,18 +25,16 @@ class Question(models.Model):
         # TODO : use values instead of number
         default=QUESTION_TYPES[0],
     )
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    question = models.CharField(max_length=400)
+    description = models.TextField(null=True, blank=True)
     is_mandatory = models.BooleanField(default=True)
+    options = models.JSONField("OptionData", default=dict)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now_add=True)
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
-    short_answer_content = models.CharField(max_length=400)
-    paragraph_content = models.CharField(max_length=3000)
-    radio_content = models.JSONField("RadioData", default=dict)
-    checkbox_content = models.JSONField("CheckboxData", default=dict)
-    dropdown_content = models.JSONField("DropdownData", default=dict)
 
     def __str__(self):
-        return self.title
+        return self.question
 
 
 class Answer(models.Model):
