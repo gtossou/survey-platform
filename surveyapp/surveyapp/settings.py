@@ -12,10 +12,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
-
-# load env variavbes
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = 'django-insecure-an4_j3zm02iz&#%v%-dqyd=#a4)-now1*d(7h$s2pmc()&*z!p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'surveys',
+    'surveys.apps.SurveysConfig',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +56,7 @@ ROOT_URLCONF = 'surveyapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

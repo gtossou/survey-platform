@@ -1,0 +1,17 @@
+
+{%  block content %}
+<h1> Create a new survey </h1>
+
+<table>
+    <tr>
+        <th>Question</th>
+    </tr>
+    {% for task in object_list %}
+    <tr>
+        <td>{{ task.title }}</td>
+    </tr>
+    {% empty %}
+=    <h3>Empty List</h3>
+=    {% endfor %}
+</table> 
+{% endblock content %}
