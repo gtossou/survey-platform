@@ -1,17 +1,11 @@
 
-{%  block content %}
-<h1> Create a new survey </h1>
 
-<table>
-    <tr>
-        <th>Question</th>
-    </tr>
-    {% for task in object_list %}
-    <tr>
-        <td>{{ task.title }}</td>
-    </tr>
-    {% empty %}
-=    <h3>Empty List</h3>
-=    {% endfor %}
-</table> 
-{% endblock content %}
+
+<h1>Create new Survey</h1>
+
+ <form action="" method="post" novalidate>
+   {% csrf_token %}
+   {{ survey_form.as_p }}
+   {{ question_form.as_p }}
+   <input type="submit" value="Submit">
+ </form>

@@ -6,7 +6,7 @@ from django.db import models
 class Survey(models.Model):
     title = models.CharField(max_length=400)
     description = models.TextField(null=True)
-    link = models.URLField(max_length=500)
+    link = models.URLField(max_length=500, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
 
