@@ -7,7 +7,7 @@
     {% for object in object_list %}
     <!-- Display Objects -->
         <li>{{ object.title }}</li>
-        <li><a href="survey/{{ object.link }}">{{ object.link }}</a>|</li>    
+        <li><a href="render_survey/{{ object.link }}">{{ object.link }}</a>|</li>
         <hr/>
         <!-- If object_list is empty  -->
         {% empty %}
