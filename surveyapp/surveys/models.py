@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
 
 from django.db import models
+import uuid
 
 
 class Survey(models.Model):
     title = models.CharField(max_length=400)
     description = models.TextField(null=True)
-    link = models.URLField(max_length=500, blank=True)
+    link = models.CharField(max_length=100, blank=True,
+                            unique=True, default=uuid.uuid4)
     created = models.DateTimeField(auto_now_add=True)
 
 
@@ -40,7 +42,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     # orm create new row created gets set automatically = when question gets
     # opened

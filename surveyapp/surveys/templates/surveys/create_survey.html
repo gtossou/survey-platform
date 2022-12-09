@@ -1,11 +1,9 @@
-
-
-
+<h3><a href="survey_list">List of surveys</a></h3>
 <h1>Create new Survey</h1>
+<form action="" method="post" novalidate>
+    {% csrf_token %}
 
- <form action="" method="post" novalidate>
-   {% csrf_token %}
-   {{ survey_form.as_p }}
-   {{ question_form.as_p }}
-   <input type="submit" value="Submit">
- </form>
+    {{ survey_form.as_p }}
+    {{ question_form.as_p }}
+    <input type="submit" value="Submit">
+</form>
