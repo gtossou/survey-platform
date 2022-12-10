@@ -1,0 +1,30 @@
+div id="table-and-form">
+<h1> Create a new survey </h1>
+
+<table>
+    <tr>
+        <th>Questions</th>
+    </tr>
+    {% for question in object_list %}
+    <tr>
+        <td>{{ question.question_title }}</td>
+    </tr>
+    {% empty %}
+    <h3>Empty List</h3>
+    {% endfor %}
+</table>
+<h2>Add A Contact</h2>
+    <form hx-post="/create_survey" hx-target="#table-and-form">
+      <label>
+        Name
+            <input name="name" type="text">  
+      </label>
+      <label>
+        Email
+            <input name="email" type="email">  
+      </label>
+</form>
+<button hx-post="/create_survey" hx-target="table-and-form">
+    Enable Your Account
+</button>
+</div>

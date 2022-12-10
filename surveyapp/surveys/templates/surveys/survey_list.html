@@ -1,0 +1,18 @@
+<h1>List of survey</h1>
+
+ <form action="" method="post" novalidate>
+   {% csrf_token %}
+   <ul>
+    <!-- Iterate over object_list -->
+    {% for object in object_list %}
+    <!-- Display Objects -->
+        <li>{{ object.title }}</li>
+        <li><a href="survey/{{ object.link }}">{{ object.link }}</a>|</li>    
+        <hr/>
+        <!-- If object_list is empty  -->
+        {% empty %}
+        <li>No objects yet.</li>
+    {% endfor %}
+    </ul>
+   <input type="submit" value="Submit">
+ </form>
