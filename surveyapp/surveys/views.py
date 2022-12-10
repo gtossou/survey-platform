@@ -39,7 +39,31 @@ class renderSurveyView(ListView):
 
 
 def renderSurveyView(request, survey_link):
-    return render(request, 'render_survey.html', {'survey_link': survey_link})
+    questions = Question.objects.filter(
+        survey__link=survey_link)
+
+    # just one for now, TODO: support more per survey
+    question = questions[0]
+
+    if question.options:
+        options = {row["id"]: row["name"] for row in question.options}
+    else:
+        options = {}
+
+    if request.method == "POST":
+        pass
+        # TODO: handle answer form submit from render_survey template
+
+    context = {
+        'survey_link': survey_link,
+        'question': question,
+        'options': options,
+    }
+    return render(
+        request,
+        'surveys/render_survey.html',
+        context
+    )
 
 # def surveyListView(request):
 #     context = {}

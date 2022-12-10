@@ -3,5 +3,17 @@
  <form action="" method="post" novalidate>
    {% csrf_token %}
     {{survey_link}}
+    <br><br>
+    <strong>{{ question }}</strong>
+    <br><br>
+    {% if options %}
+      <select id="options" name="options">
+        {% for key, value in options.items %}
+        <option value="{{ key }}"> {{ value }}</option>
+        {% endfor %}
+      </select>
+    {% else %}
+      <textarea id="content" name="content"></textarea>
+    {% endif %}
    <input type="submit" value="Submit">
  </form>

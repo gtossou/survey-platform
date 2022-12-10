@@ -48,7 +48,12 @@ class Answer(models.Model):
     # opened
     created = models.DateTimeField(auto_now_add=True)
     # orm upon update (answering question), set content AND answered datetime
-    content = models.TextField()
+
+    # if paragraph (open question)
+    content = models.TextField(null=True, blank=True)
+    # else options
+    choice = models.SmallIntegerField(default=0)
+
     answered = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
